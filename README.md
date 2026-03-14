@@ -1,36 +1,217 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js App Router Layered Architecture Example
 
-## Getting Started
+A minimal **production-style full-stack Next.js project** demonstrating how to structure a modern application using the **App Router** and a clean **layered architecture**.
 
-First, run the development server:
+This repository shows how frontend components interact with backend API routes while separating concerns between:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+* UI components
+* API controllers
+* business logic
+* data storage
+
+The project implements a simple message system where users can view and submit messages.
+
+---
+
+# Tech Stack
+
+* **Next.js (App Router)**
+* **React**
+* **TypeScript**
+* **API Route Handlers**
+* **CSS Modules**
+
+---
+
+# Architecture Overview
+
+This project uses a **layered architecture**, a common pattern used in production applications.
+
+```
+UI Components
+      ↓
+Frontend API Layer
+      ↓
+API Route (Controller)
+      ↓
+Service Layer (Business Logic)
+      ↓
+Data Layer (Storage)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This separation improves:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* maintainability
+* testability
+* scalability
+* clarity of responsibilities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  api/messages/route.ts    # API controller
+  page.tsx                 # Server component page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+components/
+  MessageForm.tsx          # Client component
+  MessageList.tsx          # UI component
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+services/
+  messageService.ts        # Business logic
 
-## Deploy on Vercel
+data/
+  messagesStore.ts         # Data layer (in-memory store)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+lib/
+  api.ts                   # Frontend API utilities
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+types/
+  message.ts               # Shared TypeScript types
+
+.env.example
+README.md
+```
+
+---
+
+# Key Concepts Demonstrated
+
+### Server Components
+
+The main page (`app/page.tsx`) fetches data on the server before rendering.
+
+Benefits:
+
+* less client-side JavaScript
+* improved performance
+* better SEO
+
+---
+
+### Client Components
+
+Interactive functionality (form submission) lives in a client component:
+
+```
+components/MessageForm.tsx
+```
+
+---
+
+### API Routes
+
+Backend logic is exposed via a route handler:
+
+```
+/api/messages
+```
+
+Supported endpoints:
+
+| Method | Endpoint        | Description          |
+| ------ | --------------- | -------------------- |
+| GET    | `/api/messages` | Fetch all messages   |
+| POST   | `/api/messages` | Create a new message |
+
+---
+
+### Service Layer
+
+The service layer contains **business logic and validation**.
+
+```
+services/messageService.ts
+```
+
+This layer is responsible for:
+
+* input validation
+* coordinating data access
+* enforcing application rules
+
+---
+
+### Data Layer
+
+The data layer abstracts storage logic.
+
+```
+data/messagesStore.ts
+```
+
+This example uses an in-memory store, but it can easily be replaced with a real database.
+
+---
+
+# Getting Started
+
+## 1. Clone the repository
+
+```
+git clone https://github.com/yourusername/nextjs-app-router-layered-architecture-example.git
+```
+
+## 2. Install dependencies
+
+```
+npm install
+```
+
+## 3. Start the development server
+
+```
+npm run dev
+```
+
+Open the application:
+
+```
+http://localhost:3000
+```
+
+---
+
+# Environment Variables
+
+Example configuration:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
+
+Copy the example file:
+
+```
+cp .env.example .env.local
+```
+
+---
+
+# Possible Extensions
+
+This example keeps the backend intentionally simple but can easily be extended with:
+
+* PostgreSQL + Prisma
+* authentication (Auth.js / NextAuth)
+* server actions
+* request validation (Zod)
+* React Query or SWR
+* full CRUD functionality
+* pagination and filtering
+
+---
+
+# Purpose of This Repository
+
+This project is intended as a **learning reference** for developers who want to understand how to structure full-stack applications with modern Next.js patterns.
+
+It demonstrates a clean separation between frontend UI, API controllers, business logic, and data access.
+
+---
+
+# License
+
+MIT
