@@ -1,38 +1,40 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import styles from "./MessageForm.module.css"
 
 export default function MessageForm() {
-  const [text, setText] = useState("");
-  const router = useRouter();
+  const [text, setText] = useState("")
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+    e.preventDefault()
 
-    await fetch(`${API_URL}/api/messages`, {
+    await fetch("/api/messages", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text })
-    });
+      body: JSON.stringify({ text }),
+    })
 
-    setText("");
-    router.refresh();
+    setText("")
+    router.refresh()
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
+        className={styles.input}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Write message..."
+        placeholder="Write a message..."
       />
 
-      <button type="submit">Send</button>
+      <button className={styles.button} type="submit">
+        Send
+      </button>
     </form>
-  );
+  )
 }
