@@ -1,8 +1,8 @@
-import styles from "./MessageList.module.css"
-import { Message } from "@/types/message"
+import { Message } from "@/types/message";
+import styles from "./MessageList.module.css";
 
 type Props = {
-  messages: Message[]
+  messages: Message[];
 }
 
 export default function MessageList({ messages }: Props) {
@@ -14,5 +14,5 @@ export default function MessageList({ messages }: Props) {
         </li>
       ))}
     </ul>
-  )
+  );
 }

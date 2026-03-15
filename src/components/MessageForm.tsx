@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import styles from "./MessageForm.module.css"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import styles from "./MessageForm.module.css";
 
 export default function MessageForm() {
-  const [text, setText] = useState("")
-  const router = useRouter()
+  const [text, setText] = useState("");
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
 
     await fetch("/api/messages", {
       method: "POST",
@@ -17,10 +17,10 @@ export default function MessageForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ text }),
-    })
+    });
 
-    setText("")
-    router.refresh()
+    setText("");
+    router.refresh();
   }
 
   return (
@@ -36,5 +36,5 @@ export default function MessageForm() {
         Send
       </button>
     </form>
-  )
+  );
 }

@@ -1,17 +1,22 @@
-import MessageList from "@/components/MessageList";
 import MessageForm from "@/components/MessageForm";
+import MessageList from "@/components/MessageList";
 import { getMessages } from "@/lib/api";
+import styles from "./page.module.css";
 
 export default async function Home() {
   const messages = await getMessages();
 
   return (
-    <main>
-      <h1>Messages</h1>
+    <main className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Messages</h1>
 
-      <MessageList messages={messages} />
+        <MessageList messages={messages} />
 
-      <MessageForm />
+        <div className={styles.section}>
+          <MessageForm />
+        </div>
+      </div>
     </main>
   );
 }
