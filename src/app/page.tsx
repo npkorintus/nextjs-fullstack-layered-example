@@ -1,10 +1,12 @@
 import MessageForm from "@/components/MessageForm";
 import MessageList from "@/components/MessageList";
-import { getMessages } from "@/lib/api";
+import { listMessages } from "@/services/messageService";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
-  const messages = await getMessages();
+  const messages = listMessages();
 
   return (
     <main className={styles.container}>

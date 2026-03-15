@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { createMessage } from "@/lib/api";
 import styles from "./MessageForm.module.css";
 
 export default function MessageForm() {
@@ -11,13 +12,7 @@ export default function MessageForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    await fetch("/api/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+    await createMessage(text);
 
     setText("");
     router.refresh();
