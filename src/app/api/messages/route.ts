@@ -4,6 +4,7 @@
 
 import { NextResponse } from "next/server";
 import { listMessages, createMessage } from "@/server/services/messageService";
+import { createMessageSchema } from "@/schemas/messageSchema";
 
 export async function GET() {
   const messages = await listMessages();
@@ -11,10 +12,11 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const body = await req.json();
-
   try {
-    const message = createMessage(body.text);
+    const body = await req.json();
+    const parseResult = createMessageSchema.parse(body);
+    const message = createMessage(parseResult.text);
+
     return NextResponse.json(message);
   } catch (error) {
     return NextResponse.json(
