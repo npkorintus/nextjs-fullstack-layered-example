@@ -6,8 +6,7 @@ import { NextResponse } from "next/server";
 import { listMessages, createMessage } from "@/services/messageService";
 
 export async function GET() {
-  const messages = listMessages();
-
+  const messages = await listMessages();
   return NextResponse.json(messages);
 }
 

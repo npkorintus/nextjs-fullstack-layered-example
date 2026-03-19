@@ -3,10 +3,8 @@ import MessageList from "@/components/MessageList";
 import { listMessages } from "@/services/messageService";
 import styles from "./page.module.css";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
-  const messages = listMessages();
+  const messages = await listMessages();
 
   return (
     <main className={styles.container}>
