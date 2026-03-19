@@ -7,8 +7,8 @@
 
 import { getAllMessages, insertMessage } from "@/data/messagesStore";
 import { Message } from "@/types/message";
-import { prisma } from "@/lib/prisma";
-import { messageRepository } from "@/repositories";
+import { prisma } from "@/server/db/prisma";
+import { messageRepository } from "@/server/repositories";
 
 
 // export function listMessages(): Message[] {

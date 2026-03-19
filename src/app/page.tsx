@@ -1,6 +1,6 @@
 import MessageForm from "@/components/MessageForm";
 import MessageList from "@/components/MessageList";
-import { listMessages } from "@/services/messageService";
+import { listMessages } from "@/server/services/messageService";
 import styles from "./page.module.css";
 
 export default async function Home() {

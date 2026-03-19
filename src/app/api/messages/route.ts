@@ -3,7 +3,7 @@
 // Notice how the route is now very thin.
 
 import { NextResponse } from "next/server";
-import { listMessages, createMessage } from "@/services/messageService";
+import { listMessages, createMessage } from "@/server/services/messageService";
 
 export async function GET() {
   const messages = await listMessages();
